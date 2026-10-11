@@ -1,0 +1,12 @@
+{
+  "name": "mecafacil",
+  "version": "1.0.0",
+  "description": "Aplicación fácil e interactiva para aprender mecanografía en español",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["mecanografia", "aprender-teclado", "español", "educativo"],
+  "author": "Antigravity",
+  "license": "MIT"
+}

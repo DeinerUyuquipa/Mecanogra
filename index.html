@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MecaPro - Mecanografía y Teclado Profesional en Español</title>
+    <meta name="description" content="Aprende mecanografía profesional en español: teclado ISO completo, símbolos, combinaciones Shift y AltGr, acentos y velocidad sin mirar el teclado.">
+    
+    <!-- Google Fonts: Inter para UI y JetBrains Mono para código/teclado -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome 6 Pro Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-dark">
+    <div class="app-container">
+        <!-- Header Profesional -->
+        <header class="main-header">
+            <div class="logo-area">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-terminal"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>MecaPro <span class="version-tag">ISO-ES</span></h1>
+                    <p class="tagline">Dominio del teclado español, signos y combinaciones</p>
+                </div>
+            </div>
+
+            <div class="header-controls">
+                <button id="btn-font-size" class="btn-icon" title="Cambiar escala de visualización">
+                    <span class="icon">Aa</span>
+                </button>
+                <button id="btn-sound" class="btn-icon active" title="Sonido de pulsación mecánica">
+                    <i class="fa-solid fa-volume-high icon"></i>
+                </button>
+                <button id="btn-theme" class="btn-icon" title="Alternar tema claro / oscuro">
+                    <i class="fa-solid fa-sun icon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Navegación de 12 Niveles Progresivos -->
+        <nav class="levels-nav">
+            <button class="nav-arrow left" id="nav-prev-level" title="Nivel anterior">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <div class="levels-scroll" id="levels-container">
+                <!-- Generado dinámicamente por app.js -->
+            </div>
+            <button class="nav-arrow right" id="nav-next-level" title="Siguiente nivel">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </nav>
+
+        <!-- Barra de Información de la Lección Actual -->
+        <div class="lesson-bar">
+            <div class="lesson-info">
+                <div class="lesson-badge-wrapper">
+                    <span id="current-category-name" class="category-badge">NIVEL 1: FILA BASE</span>
+                    <span class="keyboard-standard-badge"><i class="fa-solid fa-globe"></i> Teclado Español QWERTY</span>
+                </div>
+                <h2 id="current-lesson-title">1.1 Teclas de Guía F y J (Con relieve táctil)</h2>
+            </div>
+            <div class="lesson-selector-wrapper">
+                <label for="lesson-select"><i class="fa-solid fa-layer-group"></i> Lección:</label>
+                <select id="lesson-select" class="lesson-dropdown"></select>
+            </div>
+        </div>
+
+        <!-- Área Principal de Práctica -->
+        <main class="practice-area">
+            <!-- Barra Superior de Métricas en Tiempo Real -->
+            <div class="stats-bar">
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper wpm-icon">
+                        <i class="fa-solid fa-gauge-high"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-label">Velocidad</span>
+                        <div class="stat-value"><span id="stat-wpm">0</span> <small>PPM</small></div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper accuracy-icon">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-label">Precisión</span>
+                        <div class="stat-value"><span id="stat-accuracy">100</span><small>%</small></div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper error-icon">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-label">Errores</span>
+                        <div class="stat-value error-text"><span id="stat-errors">0</span></div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper streak-icon">
+                        <i class="fa-solid fa-bolt-lightning"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-label">Racha</span>
+                        <div class="stat-value streak-text"><span id="stat-streak">0</span></div>
+                    </div>
+                </div>
+
+                <button id="btn-restart" class="btn-action secondary" title="Reiniciar lección actual (o pulsa Esc)">
+                    <i class="fa-solid fa-rotate-right"></i> Reiniciar
+                </button>
+            </div>
+
+            <!-- Pantalla del Texto a Escribir -->
+            <div class="display-box" id="display-box">
+                <div class="text-display" id="text-display">
+                    <!-- Los caracteres se renderizarán aquí en JetBrains Mono -->
+                </div>
+            </div>
+
+            <!-- HUD de Ayuda: ¿CÓMO SE SACA ESTE SIGNO O TECLA? -->
+            <div class="shortcut-helper-card" id="shortcut-helper">
+                <div class="helper-status-badge">
+                    <span class="helper-status-icon" id="helper-status-icon">
+                        <i class="fa-solid fa-keyboard"></i>
+                    </span>
+                    <span class="helper-type-label" id="helper-type-label">MÉTODO DE ENTRADA</span>
+                </div>
+                
+                <div class="helper-content">
+                    <div class="helper-combination" id="helper-combination">
+                        <!-- e.g. <kbd>AltGr</kbd> + <kbd>2</kbd> ➔ <span class="combo-result">@</span> -->
+                    </div>
+                    <div class="helper-instruction" id="helper-instruction">
+                        Presiona la tecla correspondiente en el teclado.
+                    </div>
+                </div>
+
+                <div class="helper-finger-badge" id="helper-finger-badge">
+                    <span class="finger-dot" id="finger-dot"></span>
+                    <span class="finger-name" id="finger-name">Índice Izquierdo</span>
+                </div>
+            </div>
+
+            <!-- Teclado Virtual Mecánico ISO-ES (Español Completo) -->
+            <div class="keyboard-wrapper">
+                <div class="keyboard-legend">
+                    <span class="legend-item meñique-izq">Meñique Izq.</span>
+                    <span class="legend-item anular-izq">Anular Izq.</span>
+                    <span class="legend-item medio-izq">Medio Izq.</span>
+                    <span class="legend-item indice-izq">Índice Izq.</span>
+                    <span class="legend-item pulgar">Pulgares</span>
+                    <span class="legend-item indice-der">Índice Der.</span>
+                    <span class="legend-item medio-der">Medio Der.</span>
+                    <span class="legend-item anular-der">Anular Der.</span>
+                    <span class="legend-item meñique-der">Meñique Der.</span>
+                </div>
+
+                <div class="keyboard" id="keyboard">
+                    <!-- Fila 0: Teclas Numéricas y Símbolos (con AltGr) -->
+                    <div class="key-row">
+                        <div class="key meñique-izq" data-key="º" data-code="Backquote"><span class="top">ª</span><span class="bottom">º</span><span class="altgr">\</span></div>
+                        <div class="key meñique-izq" data-key="1" data-code="Digit1"><span class="top">!</span><span class="bottom">1</span><span class="altgr">|</span></div>
+                        <div class="key anular-izq" data-key="2" data-code="Digit2"><span class="top">"</span><span class="bottom">2</span><span class="altgr">@</span></div>
+                        <div class="key medio-izq" data-key="3" data-code="Digit3"><span class="top">·</span><span class="bottom">3</span><span class="altgr">#</span></div>
+                        <div class="key indice-izq" data-key="4" data-code="Digit4"><span class="top">$</span><span class="bottom">4</span><span class="altgr">~</span></div>
+                        <div class="key indice-izq" data-key="5" data-code="Digit5"><span class="top">%</span><span class="bottom">5</span><span class="altgr">€</span></div>
+                        <div class="key indice-der" data-key="6" data-code="Digit6"><span class="top">&amp;</span><span class="bottom">6</span><span class="altgr">¬</span></div>
+                        <div class="key indice-der" data-key="7" data-code="Digit7"><span class="top">/</span><span class="bottom">7</span></div>
+                        <div class="key medio-der" data-key="8" data-code="Digit8"><span class="top">(</span><span class="bottom">8</span></div>
+                        <div class="key anular-der" data-key="9" data-code="Digit9"><span class="top">)</span><span class="bottom">9</span></div>
+                        <div class="key meñique-der" data-key="0" data-code="Digit0"><span class="top">=</span><span class="bottom">0</span></div>
+                        <div class="key meñique-der" data-key="'" data-code="Minus"><span class="top">?</span><span class="bottom">'</span><span class="altgr">\</span></div>
+                        <div class="key meñique-der" data-key="¡" data-code="Equal"><span class="top">¿</span><span class="bottom">¡</span></div>
+                        <div class="key key-backspace meñique-der" data-key="Backspace" data-code="Backspace"><i class="fa-solid fa-delete-left"></i> Borrar</div>
+                    </div>
+
+                    <!-- Fila 1: QWERTY + Signos y Corchetes -->
+                    <div class="key-row">
+                        <div class="key key-tab meñique-izq" data-key="Tab" data-code="Tab"><i class="fa-solid fa-arrow-right-arrow-left"></i> Tab</div>
+                        <div class="key meñique-izq" data-key="q" data-code="KeyQ">Q</div>
+                        <div class="key anular-izq" data-key="w" data-code="KeyW">W</div>
+                        <div class="key medio-izq" data-key="e" data-code="KeyE"><span class="letter">E</span><span class="altgr">€</span></div>
+                        <div class="key indice-izq" data-key="r" data-code="KeyR">R</div>
+                        <div class="key indice-izq" data-key="t" data-code="KeyT">T</div>
+                        <div class="key indice-der" data-key="y" data-code="KeyY">Y</div>
+                        <div class="key indice-der" data-key="u" data-code="KeyU">U</div>
+                        <div class="key medio-der" data-key="i" data-code="KeyI">I</div>
+                        <div class="key anular-der" data-key="o" data-code="KeyO">O</div>
+                        <div class="key meñique-der" data-key="p" data-code="KeyP">P</div>
+                        <div class="key meñique-der" data-key="`" data-code="BracketLeft"><span class="top">^</span><span class="bottom">`</span><span class="altgr">[</span></div>
+                        <div class="key meñique-der" data-key="+" data-code="BracketRight"><span class="top">*</span><span class="bottom">+</span><span class="altgr">]</span></div>
+                        <div class="key key-enter meñique-der" data-key="Enter" data-code="Enter"><i class="fa-solid fa-arrow-turn-down"></i> Enter</div>
+                    </div>
+
+                    <!-- Fila 2: ASDFGHJKLÑ + Tildes y Llaves -->
+                    <div class="key-row">
+                        <div class="key key-caps meñique-izq" data-key="CapsLock" data-code="CapsLock"><i class="fa-solid fa-arrow-up-from-bracket"></i> Bloq Mayús</div>
+                        <div class="key meñique-izq home-key" data-key="a" data-code="KeyA">A</div>
+                        <div class="key anular-izq" data-key="s" data-code="KeyS">S</div>
+                        <div class="key medio-izq" data-key="d" data-code="KeyD">D</div>
+                        <div class="key indice-izq home-key bump" data-key="f" data-code="KeyF">F <span class="tactile-bump">_</span></div>
+                        <div class="key indice-izq" data-key="g" data-code="KeyG">G</div>
+                        <div class="key indice-der" data-key="h" data-code="KeyH">H</div>
+                        <div class="key indice-der home-key bump" data-key="j" data-code="KeyJ">J <span class="tactile-bump">_</span></div>
+                        <div class="key medio-der" data-key="k" data-code="KeyK">K</div>
+                        <div class="key anular-der" data-key="l" data-code="KeyL">L</div>
+                        <div class="key meñique-der home-key" data-key="ñ" data-code="Semicolon">Ñ</div>
+                        <div class="key meñique-der" data-key="´" data-code="Quote"><span class="top">¨</span><span class="bottom">´</span><span class="altgr">{</span></div>
+                        <div class="key meñique-der" data-key="ç" data-code="Backslash"><span class="top">Ç</span><span class="bottom">ç</span><span class="altgr">}</span></div>
+                    </div>
+
+                    <!-- Fila 3: ZXCVBNM + Menor/Mayor y Puntuación -->
+                    <div class="key-row">
+                        <div class="key key-shift-left meñique-izq" data-key="Shift" data-code="ShiftLeft"><i class="fa-solid fa-arrow-up"></i> Mayús</div>
+                        <div class="key meñique-izq" data-key="<" data-code="IntlBackslash"><span class="top">&gt;</span><span class="bottom">&lt;</span></div>
+                        <div class="key meñique-izq" data-key="z" data-code="KeyZ">Z</div>
+                        <div class="key anular-izq" data-key="x" data-code="KeyX">X</div>
+                        <div class="key medio-izq" data-key="c" data-code="KeyC">C</div>
+                        <div class="key indice-izq" data-key="v" data-code="KeyV">V</div>
+                        <div class="key indice-izq" data-key="b" data-code="KeyB">B</div>
+                        <div class="key indice-der" data-key="n" data-code="KeyN">N</div>
+                        <div class="key indice-der" data-key="m" data-code="KeyM">M</div>
+                        <div class="key medio-der" data-key="," data-code="Comma"><span class="top">;</span><span class="bottom">,</span></div>
+                        <div class="key anular-der" data-key="." data-code="Period"><span class="top">:</span><span class="bottom">.</span></div>
+                        <div class="key meñique-der" data-key="-" data-code="Slash"><span class="top">_</span><span class="bottom">-</span></div>
+                        <div class="key key-shift-right meñique-der" data-key="Shift" data-code="ShiftRight"><i class="fa-solid fa-arrow-up"></i> Mayús</div>
+                    </div>
+
+                    <!-- Fila 4: Espacio y Modificadores -->
+                    <div class="key-row">
+                        <div class="key key-ctrl meñique-izq" data-key="Control" data-code="ControlLeft">Ctrl</div>
+                        <div class="key key-alt anular-izq" data-key="Alt" data-code="AltLeft">Alt</div>
+                        <div class="key key-space pulgar" data-key=" " data-code="Space">Barra Espaciadora</div>
+                        <div class="key key-altgr anular-der" data-key="AltGraph" data-code="AltRight">AltGr</div>
+                        <div class="key key-ctrl meñique-der" data-key="Control" data-code="ControlRight">Ctrl</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Profesional de Resultados y Rendimiento -->
+    <div class="modal-backdrop" id="modal-success">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="grade-badge" id="modal-grade">S</div>
+                <h2>Lección Completada</h2>
+                <p id="modal-subtitle">Rendimiento evaluado con éxito</p>
+            </div>
+
+            <div class="modal-stats-grid">
+                <div class="modal-stat-box">
+                    <span class="label">Velocidad</span>
+                    <span class="value" id="modal-wpm">0 PPM</span>
+                </div>
+                <div class="modal-stat-box">
+                    <span class="label">Precisión</span>
+                    <span class="value" id="modal-accuracy">100%</span>
+                </div>
+                <div class="modal-stat-box">
+                    <span class="label">Errores</span>
+                    <span class="value" id="modal-errors">0</span>
+                </div>
+                <div class="modal-stat-box">
+                    <span class="label">Tiempo</span>
+                    <span class="value" id="modal-time">00:00</span>
+                </div>
+            </div>
+
+            <div class="modal-feedback-box" id="modal-message">
+                "Excelente velocidad y precisión. Has demostrado dominio en esta sección."
+            </div>
+
+            <div class="modal-actions">
+                <button id="btn-modal-repeat" class="btn-action secondary">
+                    <i class="fa-solid fa-rotate-right"></i> Repetir Lección
+                </button>
+                <button id="btn-modal-next" class="btn-action primary">
+                    <i class="fa-solid fa-forward-step"></i> Siguiente Lección
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>

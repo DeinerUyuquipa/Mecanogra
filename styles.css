@@ -1,0 +1,1143 @@
+/* ==========================================================================
+   MecaPro - Sistema de Diseño Profesional & Estilos Modernos
+   Inspirado en interfaces de ingeniería, JetBrains y Monkeytype
+   ========================================================================== */
+
+:root {
+    /* Paleta Tema Oscuro Profesional (Default) */
+    --bg-page: #0a0e17;
+    --bg-gradient: radial-gradient(ellipse 90% 70% at 50% -20%, #1e293b 0%, #0a0e17 80%);
+    --card-bg: rgba(17, 24, 39, 0.75);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --card-border-hover: rgba(99, 102, 241, 0.4);
+    
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    
+    /* Acentos y Señales */
+    --accent-primary: #6366f1;
+    --accent-hover: #4f46e5;
+    --accent-glow: rgba(99, 102, 241, 0.35);
+    
+    --cyan-mod: #06b6d4;
+    --cyan-glow: rgba(6, 182, 212, 0.35);
+    
+    --amber-altgr: #f59e0b;
+    --amber-glow: rgba(245, 158, 11, 0.4);
+    
+    --success-color: #10b981;
+    --success-bg: rgba(16, 185, 129, 0.15);
+    
+    --error-color: #f43f5e;
+    --error-bg: rgba(244, 63, 94, 0.18);
+    
+    /* Teclado & Teclas */
+    --key-bg: #1e293b;
+    --key-border: #334155;
+    --key-shadow: 0 4px 0 #0f172a, 0 6px 14px rgba(0, 0, 0, 0.45);
+    --key-text: #f1f5f9;
+    --key-legend-sub: #94a3b8;
+    
+    /* Colores Pedagógicos por Dedo (Tonos refinados) */
+    --finger-menique-izq: #ec4899;
+    --finger-anular-izq: #f97316;
+    --finger-medio-izq: #eab308;
+    --finger-indice-izq: #3b82f6;
+    --finger-pulgar: #64748b;
+    --finger-indice-der: #10b981;
+    --finger-medio-der: #14b8a6;
+    --finger-anular-der: #a855f7;
+    --finger-menique-der: #06b6d4;
+
+    /* Fuentes y Escalas */
+    --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+    --base-font-size: 16px;
+    --display-char-size: 2.6rem;
+}
+
+/* Tema Claro de Estudio (Toggle) */
+body:not(.theme-dark) {
+    --bg-page: #f8fafc;
+    --bg-gradient: radial-gradient(ellipse 90% 60% at 50% -10%, #e2e8f0 0%, #f8fafc 80%);
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --card-border: rgba(203, 213, 225, 0.8);
+    --card-border-hover: rgba(99, 102, 241, 0.6);
+    
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    
+    --key-bg: #ffffff;
+    --key-border: #cbd5e1;
+    --key-shadow: 0 4px 0 #94a3b8, 0 4px 10px rgba(0, 0, 0, 0.08);
+    --key-text: #1e293b;
+    --key-legend-sub: #64748b;
+}
+
+/* Reset y Base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: var(--base-font-size);
+    font-family: var(--font-ui);
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg-page);
+    background-image: var(--bg-gradient);
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 1.5rem 1rem 3rem;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 1140px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+/* ==========================================================================
+   Header Profesional
+   ========================================================================== */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 0.9rem 1.4rem;
+    border-radius: 18px;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+}
+
+.logo-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--accent-primary) 0%, #4338ca 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    font-size: 1.3rem;
+    box-shadow: 0 0 18px var(--accent-glow);
+}
+
+.logo-text h1 {
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    line-height: 1.1;
+}
+
+.version-tag {
+    font-size: 0.68rem;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    background: rgba(99, 102, 241, 0.18);
+    color: var(--accent-primary);
+    padding: 0.15rem 0.5rem;
+    border-radius: 6px;
+    border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.logo-text .tagline {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    margin-top: 0.1rem;
+}
+
+.header-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-icon {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: var(--font-mono);
+    font-weight: 700;
+}
+
+.btn-icon:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--accent-glow);
+}
+
+.btn-icon.active {
+    background: rgba(99, 102, 241, 0.18);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+}
+
+/* ==========================================================================
+   Navegación de 12 Niveles Progresivos
+   ========================================================================== */
+.levels-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 0.4rem 0.6rem;
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+}
+
+.nav-arrow {
+    background: transparent;
+    border: 1px solid var(--card-border);
+    color: var(--text-secondary);
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+}
+
+.nav-arrow:hover {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: white;
+}
+
+.levels-scroll {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 0.2rem 0.2rem;
+    scrollbar-width: none;
+    width: 100%;
+}
+
+.levels-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.level-tab {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-secondary);
+    padding: 0.5rem 0.95rem;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.level-tab i {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    transition: color 0.2s;
+}
+
+.level-tab:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.level-tab.active {
+    background: var(--accent-primary);
+    color: #ffffff;
+    font-weight: 700;
+    box-shadow: 0 4px 14px var(--accent-glow);
+}
+
+.level-tab.active i {
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   Barra de Información de Lección
+   ========================================================================== */
+.lesson-bar {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 0.9rem 1.4rem;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    backdrop-filter: blur(10px);
+}
+
+.lesson-badge-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.25rem;
+}
+
+.category-badge {
+    background: rgba(99, 102, 241, 0.15);
+    color: var(--accent-primary);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    padding: 0.2rem 0.65rem;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.keyboard-standard-badge {
+    background: rgba(148, 163, 184, 0.1);
+    color: var(--text-secondary);
+    border: 1px solid var(--card-border);
+    padding: 0.2rem 0.55rem;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.lesson-info h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.lesson-selector-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.lesson-selector-wrapper label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.lesson-dropdown {
+    background: var(--bg-page);
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+    padding: 0.5rem 0.9rem;
+    border-radius: 9px;
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+    min-width: 240px;
+}
+
+.lesson-dropdown:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px var(--accent-glow);
+}
+
+/* ==========================================================================
+   Área Principal de Práctica
+   ========================================================================== */
+.practice-area {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Barra de Estadísticas Horizontal */
+.stats-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.stat-card {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 0.7rem 0.9rem;
+    border-radius: 14px;
+    backdrop-filter: blur(10px);
+    transition: all 0.2s ease;
+}
+
+.stat-card:hover {
+    border-color: var(--card-border-hover);
+    transform: translateY(-2px);
+}
+
+.stat-icon-wrapper {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.wpm-icon {
+    background: rgba(99, 102, 241, 0.15);
+    color: var(--accent-primary);
+}
+
+.accuracy-icon {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--success-color);
+}
+
+.error-icon {
+    background: rgba(244, 63, 94, 0.15);
+    color: var(--error-color);
+}
+
+.streak-icon {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--amber-altgr);
+}
+
+.stat-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.stat-label {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.stat-value {
+    font-family: var(--font-mono);
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.1;
+    margin-top: 0.1rem;
+}
+
+.stat-value small {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.stat-value.error-text {
+    color: var(--error-color);
+}
+
+.stat-value.streak-text {
+    color: var(--amber-altgr);
+}
+
+.btn-action {
+    padding: 0.7rem 1.3rem;
+    border-radius: 11px;
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+}
+
+.btn-action.primary {
+    background: var(--accent-primary);
+    color: white;
+    box-shadow: 0 4px 14px var(--accent-glow);
+}
+
+.btn-action.primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+}
+
+.btn-action.secondary {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+}
+
+.btn-action.secondary:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Pantalla del Texto a Escribir (JetBrains Mono)
+   ========================================================================== */
+.display-box {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 1.6rem 2rem;
+    min-height: 125px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.text-display {
+    font-family: var(--font-mono);
+    font-size: var(--display-char-size);
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 2.5px;
+    word-break: break-word;
+    text-align: center;
+    user-select: none;
+    width: 100%;
+}
+
+.char {
+    position: relative;
+    padding: 0.05rem 0.15rem;
+    border-radius: 4px;
+    transition: all 0.12s ease;
+    color: var(--text-muted);
+}
+
+.char.pending {
+    opacity: 0.6;
+}
+
+.char.correct {
+    color: var(--success-color);
+    background: var(--success-bg);
+    opacity: 1;
+}
+
+.char.incorrect {
+    color: var(--error-color);
+    background: var(--error-bg);
+    border-bottom: 2px solid var(--error-color);
+    opacity: 1;
+}
+
+.char.current {
+    color: #ffffff;
+    background: rgba(99, 102, 241, 0.3);
+    font-weight: 800;
+    opacity: 1;
+    border-bottom: 3px solid var(--accent-primary);
+    animation: caret-pulse 1.1s infinite alternate;
+}
+
+@keyframes caret-pulse {
+    0% {
+        box-shadow: 0 0 0 2px var(--accent-primary);
+    }
+    100% {
+        box-shadow: 0 0 10px 3px var(--accent-primary);
+    }
+}
+
+/* ==========================================================================
+   HUD DE AYUDA: ¿CÓMO SE SACA ESTE SIGNO O TECLA?
+   ========================================================================== */
+.shortcut-helper-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-left: 4px solid var(--accent-primary);
+    padding: 0.9rem 1.4rem;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.shortcut-helper-card.altgr-mode {
+    border-left-color: var(--amber-altgr);
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.08) 0%, var(--card-bg) 60%);
+}
+
+.shortcut-helper-card.shift-mode {
+    border-left-color: var(--cyan-mod);
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.08) 0%, var(--card-bg) 60%);
+}
+
+.shortcut-helper-card.accent-mode {
+    border-left-color: #ec4899;
+    background: linear-gradient(90deg, rgba(236, 72, 153, 0.08) 0%, var(--card-bg) 60%);
+}
+
+.helper-status-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    min-width: 90px;
+    border-right: 1px solid var(--card-border);
+    padding-right: 1rem;
+}
+
+.helper-status-icon {
+    font-size: 1.3rem;
+    color: var(--accent-primary);
+}
+
+.helper-type-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+}
+
+.helper-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.helper-combination {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+/* Elementos KBD 3D Modernos */
+kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #1e293b;
+    border: 1px solid #475569;
+    border-bottom: 3px solid #0f172a;
+    color: #f8fafc;
+    padding: 0.15rem 0.55rem;
+    border-radius: 6px;
+    font-size: 0.92rem;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    min-width: 32px;
+}
+
+body:not(.theme-dark) kbd {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    border-bottom: 3px solid #94a3b8;
+    color: #0f172a;
+}
+
+kbd.kbd-altgr {
+    background: rgba(245, 158, 11, 0.2);
+    border-color: var(--amber-altgr);
+    color: var(--amber-altgr);
+    border-bottom-color: #b45309;
+}
+
+kbd.kbd-shift {
+    background: rgba(6, 182, 212, 0.2);
+    border-color: var(--cyan-mod);
+    color: var(--cyan-mod);
+    border-bottom-color: #0e7490;
+}
+
+kbd.kbd-accent {
+    background: rgba(236, 72, 153, 0.2);
+    border-color: #ec4899;
+    color: #ec4899;
+    border-bottom-color: #be185d;
+}
+
+.combo-symbol {
+    color: var(--text-muted);
+    font-weight: 800;
+    font-size: 0.95rem;
+}
+
+.combo-arrow {
+    color: var(--accent-primary);
+    margin: 0 0.2rem;
+    font-size: 1.1rem;
+}
+
+.combo-result {
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #ffffff;
+    background: rgba(99, 102, 241, 0.2);
+    padding: 0.1rem 0.5rem;
+    border-radius: 6px;
+    border: 1px solid var(--accent-primary);
+}
+
+.helper-instruction {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.3;
+}
+
+.helper-instruction strong {
+    color: var(--text-primary);
+}
+
+.helper-finger-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--card-border);
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    flex-shrink: 0;
+}
+
+.finger-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--finger-indice-izq);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.finger-name {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   Teclado Virtual Mecánico ISO-ES
+   ========================================================================== */
+.keyboard-wrapper {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 1.2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    backdrop-filter: blur(12px);
+}
+
+.keyboard-legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.legend-item {
+    font-size: 0.72rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.2px;
+}
+
+.legend-item::before {
+    content: '';
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+}
+
+.legend-item.meñique-izq::before { background: var(--finger-menique-izq); }
+.legend-item.anular-izq::before { background: var(--finger-anular-izq); }
+.legend-item.medio-izq::before { background: var(--finger-medio-izq); }
+.legend-item.indice-izq::before { background: var(--finger-indice-izq); }
+.legend-item.pulgar::before { background: var(--finger-pulgar); }
+.legend-item.indice-der::before { background: var(--finger-indice-der); }
+.legend-item.medio-der::before { background: var(--finger-medio-der); }
+.legend-item.anular-der::before { background: var(--finger-anular-der); }
+.legend-item.meñique-der::before { background: var(--finger-menique-der); }
+
+/* Teclas */
+.keyboard {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    user-select: none;
+}
+
+.key-row {
+    display: flex;
+    justify-content: center;
+    gap: 0.38rem;
+}
+
+.key {
+    background: var(--key-bg);
+    border: 1px solid var(--key-border);
+    border-radius: 9px;
+    min-width: 47px;
+    height: 52px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--key-text);
+    position: relative;
+    transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--key-shadow);
+    cursor: default;
+}
+
+/* Indicador de dedo superior sutil */
+.key.meñique-izq { border-top: 3px solid var(--finger-menique-izq); }
+.key.anular-izq { border-top: 3px solid var(--finger-anular-izq); }
+.key.medio-izq { border-top: 3px solid var(--finger-medio-izq); }
+.key.indice-izq { border-top: 3px solid var(--finger-indice-izq); }
+.key.pulgar { border-top: 3px solid var(--finger-pulgar); }
+.key.indice-der { border-top: 3px solid var(--finger-indice-der); }
+.key.medio-der { border-top: 3px solid var(--finger-medio-der); }
+.key.anular-der { border-top: 3px solid var(--finger-anular-der); }
+.key.meñique-der { border-top: 3px solid var(--finger-menique-der); }
+
+/* Distribución de leyendas en teclas con 2 o 3 caracteres */
+.key .top {
+    font-size: 0.68rem;
+    color: var(--key-legend-sub);
+    line-height: 1;
+    position: absolute;
+    top: 5px;
+    left: 8px;
+}
+
+.key .bottom {
+    font-size: 0.95rem;
+    line-height: 1;
+    position: absolute;
+    bottom: 7px;
+    left: 8px;
+}
+
+.key .letter {
+    font-size: 0.95rem;
+    position: absolute;
+    bottom: 7px;
+    left: 8px;
+}
+
+.key .altgr {
+    font-size: 0.72rem;
+    color: var(--amber-altgr);
+    line-height: 1;
+    position: absolute;
+    bottom: 7px;
+    right: 8px;
+    font-weight: 800;
+}
+
+.tactile-bump {
+    font-size: 0.85rem;
+    color: var(--accent-primary);
+    position: absolute;
+    bottom: 2px;
+}
+
+/* Tamaños de teclas especiales */
+.key-backspace { min-width: 88px; font-size: 0.78rem; }
+.key-tab { min-width: 70px; font-size: 0.78rem; }
+.key-caps { min-width: 95px; font-size: 0.78rem; }
+.key-enter { min-width: 88px; font-size: 0.78rem; }
+.key-shift-left { min-width: 100px; font-size: 0.78rem; }
+.key-shift-right { min-width: 115px; font-size: 0.78rem; }
+.key-space { flex-grow: 1; max-width: 320px; font-size: 0.78rem; letter-spacing: 0.5px; }
+.key-ctrl, .key-alt, .key-altgr { min-width: 60px; font-size: 0.78rem; }
+
+/* ESTADOS DE TECLA ACTIVOS */
+
+/* Tecla Objetivo Principal */
+.key.target-key {
+    background: var(--accent-primary) !important;
+    color: white !important;
+    border-color: #818cf8 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px var(--accent-glow), 0 4px 0 #3730a3 !important;
+}
+
+.key.target-key .top,
+.key.target-key .bottom,
+.key.target-key .altgr,
+.key.target-key .letter {
+    color: white !important;
+}
+
+/* Tecla Modificadora Shift Requerida */
+.key.target-shift {
+    background: var(--cyan-mod) !important;
+    color: white !important;
+    border-color: #67e8f9 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px var(--cyan-glow), 0 4px 0 #0e7490 !important;
+    animation: mod-pulse 1s infinite alternate;
+}
+
+/* Tecla Modificadora AltGr Requerida */
+.key.target-altgr {
+    background: var(--amber-altgr) !important;
+    color: white !important;
+    border-color: #fde047 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px var(--amber-glow), 0 4px 0 #b45309 !important;
+    animation: mod-pulse 1s infinite alternate;
+}
+
+/* Tecla de Acento / Tilde Requerida (Paso 1) */
+.key.target-accent-step1 {
+    background: #ec4899 !important;
+    color: white !important;
+    border-color: #f472b6 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(236, 72, 153, 0.4), 0 4px 0 #be185d !important;
+    animation: mod-pulse 1s infinite alternate;
+}
+
+/* Tecla de Acento / Vocal (Paso 2) */
+.key.target-accent-step2 {
+    border: 2px dashed #ec4899 !important;
+    background: rgba(236, 72, 153, 0.15) !important;
+}
+
+@keyframes mod-pulse {
+    0% { transform: translateY(-2px) scale(1.01); }
+    100% { transform: translateY(-3px) scale(1.05); }
+}
+
+/* Tecla Pulsada (Efecto Mecánico) */
+.key.pressed {
+    transform: translateY(3px) !important;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.5) !important;
+    background: rgba(99, 102, 241, 0.25) !important;
+}
+
+/* Error al pulsar */
+.key.error-key {
+    background: var(--error-color) !important;
+    color: white !important;
+    border-color: #fda4af !important;
+    animation: key-shake 0.25s ease;
+}
+
+@keyframes key-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+}
+
+/* ==========================================================================
+   Modal Profesional de Resultados
+   ========================================================================== */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 14, 23, 0.85);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1.5rem;
+}
+
+.modal-backdrop.show {
+    display: flex;
+}
+
+.modal-card {
+    background: #111827;
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    padding: 2.2rem;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+    animation: modal-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modal-pop {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.grade-badge {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+    font-family: var(--font-mono);
+    font-size: 2.2rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 25px rgba(245, 158, 11, 0.4);
+}
+
+.modal-header h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-top: 0.5rem;
+}
+
+.modal-header p {
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+}
+
+.modal-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+}
+
+.modal-stat-box {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.modal-stat-box .label {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.modal-stat-box .value {
+    font-family: var(--font-mono);
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.modal-feedback-box {
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.modal-actions .btn-action {
+    flex: 1;
+}
+
+/* ==========================================================================
+   Adaptabilidad Responsive
+   ========================================================================== */
+@media (max-width: 900px) {
+    .stats-bar {
+        flex-wrap: wrap;
+    }
+    .stat-card {
+        min-width: 45%;
+    }
+    .key {
+        min-width: 38px;
+        height: 46px;
+        font-size: 0.85rem;
+    }
+    .key .top { font-size: 0.6rem; }
+    .key .altgr { font-size: 0.62rem; }
+}
